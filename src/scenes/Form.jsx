@@ -154,8 +154,9 @@ function Form() {
                 color="secondary"
                 variant="outlined"
                 sx={{
-                  "& .css-1romiuw-MuiButtonBase-root-MuiButton-root": {
-                    color: "#000 !important",
+                  "&.MuiButton-outlinedSecondary": {
+                    color: "#999",
+                    fontWeight: 700,
                   },
                 }}
               >

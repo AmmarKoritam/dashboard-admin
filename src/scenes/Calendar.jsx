@@ -1,14 +1,127 @@
-import { Box } from "@mui/material";
+import { useState } from "react";
+import { formatDate } from "@fullcalendar/core";
+import FullCalendar from "@fullcalendar/react";
+import dayGridPlugin from "@fullcalendar/daygrid";
+import timeGridPlugin from "@fullcalendar/timegrid";
+import interactionPlugin from "@fullcalendar/interaction";
+import listPlugin from "@fullcalendar/list";
+import {
+  Box,
+  List,
+  ListItem,
+  ListItemText,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import Header from "../components/Header";
+import { tokens } from "../theme";
 
-function Calendar() {
+const Calendar = () => {
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
+  const [currentEvents, setCurrentEvents] = useState([]);
+
+  function handleDateClick(selected) {
+    const title = prompt("please enter a new title for your event");
+    const calendarApi = selected.view.calendar;
+    calendarApi.unselect();
+
+    if (title) {
+      calendarApi.addEvent({
+        id: `${selected.dateStr}-title`,
+        title,
+        start: selected.startStr,
+        end: selected.endtStr,
+        allDay: selected.allDay,
+      });
+    }
+  }
+
+  function handleEventClick(selected) {
+    if (
+      window.confirm(
+        `Are you sure you want to delete the event '${selected.event.title}'`
+      )
+    ) {
+      selected.event.remove();
+    }
+  }
+
   return (
     <Box m="20px">
-      <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="CALENDER" subTitle="Full Calender Interactive Page" />
+      <Header title="Calendar" subtitle="Full Calendar Interactive Page" />
+
+      <Box display="flex" justifyContent="space-between">
+        {/* CALENDAR SIDEBAR */}
+
+        <Box
+          flex="1 1 25%"
+          backgroundColor={colors.primary[400]}
+          p="15px"
+          borderRadius="5px"
+        >
+          <Typography variant="h5">Events</Typography>
+
+          <List>
+            {currentEvents.map((event) => (
+              <ListItem
+                key={event.id}
+                sx={{
+                  backgroundColor: colors.greenAccent[700],
+                  margin: "10px 0",
+                  borderRadius: "5px",
+                }}
+              >
+                <ListItemText
+                  primary={<Typography variant="h4">{event.title}</Typography>}
+                  secondary={
+                    <Typography variant="h5">
+                      {formatDate(event.start, {
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric",
+                      })}
+                    </Typography>
+                  }
+                />
+              </ListItem>
+            ))}
+          </List>
+        </Box>
+
+        {/* CALENDAR */}
+
+        <Box flex="1 1 100%" ml="15px">
+          <FullCalendar
+            height="75vh"
+            plugins={[
+              dayGridPlugin,
+              timeGridPlugin,
+              interactionPlugin,
+              listPlugin,
+            ]}
+            headerToolbar={{
+              left: "prev,next,today",
+              center: "title",
+              right: "dayGridMonth,timeGridWeek,timeGridDay,listMonth",
+            }}
+            initialView="dayGridMonth"
+            editable={true}
+            selectable={true}
+            selectMirror={true}
+            dayMaxEvent={true}
+            select={handleDateClick}
+            eventClick={handleEventClick}
+            eventsSet={(events) => setCurrentEvents(events)}
+            initialEvents={[
+              { id: "123", title: "All-day-event", date: "2025-11-01" },
+              { id: "154", title: "Timed event", date: "2025-11-11" },
+            ]}
+          />
+        </Box>
       </Box>
     </Box>
   );
-}
+};
 
 export default Calendar;
