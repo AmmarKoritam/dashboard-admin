@@ -109,7 +109,7 @@ const Calendar = () => {
             editable={true}
             selectable={true}
             selectMirror={true}
-            dayMaxEvent={true}
+            dayMaxEventRows={true}
             select={handleDateClick}
             eventClick={handleEventClick}
             eventsSet={(events) => setCurrentEvents(events)}
