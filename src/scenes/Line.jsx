@@ -1,12 +1,13 @@
 import { Box } from "@mui/material";
-import React from "react";
 import Header from "../components/Header";
+import LineChart from "../components/LineChart";
 
 function Line() {
   return (
     <Box m="20px">
-      <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="LINE CHART" subTitle="Simple Line Chart" />
+      <Header title="LINE CHART" subTitle="Simple Line Chart" />
+      <Box height="75vh">
+        <LineChart />
       </Box>
     </Box>
   );
