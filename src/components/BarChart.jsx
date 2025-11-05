@@ -3,7 +3,7 @@ import { ResponsiveBar } from "@nivo/bar";
 import { tokens } from "../theme";
 import { mockBarData as data } from "../data/mockData";
 
-function BarChart({ isDashboard = false }) {
+function BarChart({ isDashboard = false, textSize, enableLabel = false }) {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -13,7 +13,7 @@ function BarChart({ isDashboard = false }) {
       theme={{
         // added
         text: {
-          fontSize: 16,
+          fontSize: textSize,
         },
         axis: {
           domain: {
@@ -44,6 +44,7 @@ function BarChart({ isDashboard = false }) {
       }}
       keys={["hot dog", "burger", "sandwich", "kebab", "fries", "donut"]}
       indexBy="country"
+      enableLabel={enableLabel}
       labelSkipWidth={12}
       labelSkipHeight={12}
       borderRadius={5}

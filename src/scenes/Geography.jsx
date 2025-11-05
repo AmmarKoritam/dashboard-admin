@@ -1,5 +1,4 @@
 import { Box, useTheme } from "@mui/material";
-
 import Header from "../components/Header";
 import GeographyChart from "../components/GeographyChart";
 import { tokens } from "../theme";

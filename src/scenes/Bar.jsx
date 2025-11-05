@@ -7,7 +7,7 @@ function Bar() {
     <Box m="20px">
       <Header title="BAR CHART" subTitle="Simple Bar Chart" />
       <Box height="75vh">
-        <BarChart />
+        <BarChart textSize={18} enableLabel />
       </Box>
     </Box>
   );

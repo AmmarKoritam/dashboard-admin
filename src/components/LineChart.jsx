@@ -3,7 +3,7 @@ import { mockLineData as data } from "../data/mockData";
 import { tokens } from "../theme";
 import { useTheme } from "@emotion/react";
 
-function LineChart({ isDashboard = false }) {
+function LineChart({ isDashboard = false, axisLeftSize, axisRightSizeSize }) {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   return (
@@ -12,7 +12,7 @@ function LineChart({ isDashboard = false }) {
       theme={{
         // added
         text: {
-          fontSize: 18,
+          fontSize: axisLeftSize,
         },
         axis: {
           domain: {
@@ -38,7 +38,7 @@ function LineChart({ isDashboard = false }) {
         legends: {
           text: {
             fill: colors.grey[100],
-            fontSize: 24,
+            fontSize: axisRightSizeSize,
           },
         },
 
@@ -64,6 +64,7 @@ function LineChart({ isDashboard = false }) {
         legendOffset: 36,
       }}
       axisLeft={{
+        tickValues: [100, 200, 300, 400, 500, 600],
         tickRotation: -34,
         legend: isDashboard ? undefined : "Number",
         legendOffset: -55,

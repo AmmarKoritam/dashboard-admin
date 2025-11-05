@@ -7,7 +7,7 @@ function Line() {
     <Box m="20px">
       <Header title="LINE CHART" subTitle="Simple Line Chart" />
       <Box height="75vh">
-        <LineChart />
+        <LineChart isDashboard axisLeftSize={20} axisRightSizeSize={24} />
       </Box>
     </Box>
   );
